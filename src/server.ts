@@ -1,3 +1,13 @@
+/**
+ * @file
+ * 
+ * The server is implemented in this file
+ * 
+ * @author hm 
+ * @license MIT
+ * 
+ */
+
 import http2 from 'http2'
 import net from 'net'
 import Pino from 'pino'
@@ -14,6 +24,7 @@ const server = http2.createSecureServer({
     cert: fs.readFileSync(config.cert),
     requestCert: true,
     rejectUnauthorized: false,
+    minVersion: 'TLSv1.3',
     ca: fs.readFileSync(config.ca)
 })
 
@@ -63,7 +74,7 @@ server.on('stream', (stream, headers) => {
 })
 
 server.on('sessionError', err => {
-    log.info(err, 'local server error')
+    log.info(err.stack!, 'local server error')
 })
 
 server.listen(config.server_port, () => {
@@ -81,5 +92,5 @@ server.listen(config.server_port, () => {
 })
 
 process.on('uncaughtException', err => {
-    log.error(err, 'Unhandled Exception')
+    log.error(err.stack!, 'Unhandled Exception')
 })

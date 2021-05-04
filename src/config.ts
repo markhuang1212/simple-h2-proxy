@@ -1,10 +1,17 @@
-import { getuid } from "process"
+/**
+ * @file
+ * 
+ * The default configuration is saved in this file.
+ * 
+ * @author hm
+ * @license MIT
+ * 
+ */
 
 class Config {
 
     key = '/etc/h2-proxy/key.pem'
     cert = '/etc/h2-proxy/cert.pem'
-
     ca = '/etc/h2-proxy/ca.pem'
 
     server_port = 443

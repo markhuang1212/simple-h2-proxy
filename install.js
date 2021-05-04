@@ -1,4 +1,12 @@
-// this script create a systemd file and copy it to your /etc/systemd/system folder
+/**
+ * @file
+ * 
+ * this script create a systemd file and copy it to your /etc/systemd/system folder
+ * 
+ * @author hm
+ * @license MIT
+ * 
+ */ 
 
 const fs = require('fs')
 const path = require('path')
