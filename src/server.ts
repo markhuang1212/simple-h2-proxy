@@ -58,11 +58,11 @@ server.on('stream', (stream, headers) => {
             ':status': 200
         })
         stream.end(indexHTML)
-        
+
     }
 })
 
-server.on('error', err => {
+server.on('sessionError', err => {
     log.info(err, 'local server error')
 })
 
@@ -78,4 +78,8 @@ server.listen(config.server_port, () => {
         setuid('nobody')
         log.info('privileges downgraded')
     }
+})
+
+process.on('uncaughtException', err => {
+    log.error(err, 'Unhandled Exception')
 })

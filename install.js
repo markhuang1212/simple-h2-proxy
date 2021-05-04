@@ -9,7 +9,7 @@ const file = `# Installation Time: ${new Date().toUTCString()}
 Description=Simple HTTP2 Proxy
 
 [Service]
-ExecStart=/usr/bin/node ${path.join(__dirname, 'dist/server.js')}
+ExecStart=/usr/bin/node -r ${path.join(__dirname, '.pnp.js')} ${path.join(__dirname, 'dist/server.js')}
 Restart=always
 WorkingDirectory=${__dirname}
 
