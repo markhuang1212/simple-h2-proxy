@@ -1,11 +1,14 @@
+import { getuid } from "process"
+
 class Config {
-    key = ''
-    cert = ''
 
-    user = ''
-    group = ''
+    key = '/etc/h2-proxy/key.pem'
+    cert = '/etc/h2-proxy/cert.pem'
 
-    ca = ['']
+    ca = '/etc/h2-proxy/ca.pem'
+
+    server_port = 443
+    client_port = 8080
 }
 
 const config = new Config

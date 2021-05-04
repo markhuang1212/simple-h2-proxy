@@ -1080,6 +1080,7 @@ __metadata:
     eslint: ^7.25.0
     pino: ^6.11.3
     pino-pretty: ^4.7.1
+    tsc: ^1.20150623.0
     typescript: ^4.2.4
   languageName: unknown
   linkType: soft
@@ -1194,6 +1195,16 @@ __metadata:
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: 373904ce70524ba11ec7e1905c44fb92671132d5e0b0aba2fb48057161f8bf9cbf7f6178f0adf31810150cf44fb52c7b912dc722bff3fddf9688378596dbeb56
+  languageName: node
+  linkType: hard
+
+"tsc@npm:^1.20150623.0":
+  version: 1.20150623.0
+  resolution: "tsc@npm:1.20150623.0"
+  bin:
+    tsc: ./bin/tsc
+    tsserver: ./bin/tsserver
+  checksum: 648f71fea1459d1e5fe526f10956a1fd6ad4c79be1abdb2e1166d5e57b7acbec9aa72bf074b8cae5d361650a32c08910ab78efaea1cc4b9696aa79ada950d761
   languageName: node
   linkType: hard
 
