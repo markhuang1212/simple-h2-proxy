@@ -1,0 +1,13 @@
+{
+  "name": "simple-h2-proxy",
+  "dependencies": {
+    "@types/node": "^15.0.1",
+    "@types/pino": "^6.3.8",
+    "pino": "^6.11.3",
+    "pino-pretty": "^4.7.1",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0"
+  }
+}
