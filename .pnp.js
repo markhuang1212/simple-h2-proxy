@@ -37,7 +37,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
-            ["@types/node", "npm:15.0.1"],
+            ["@types/node", "npm:15.0.2"],
             ["@types/pino", "npm:6.3.8"],
             ["eslint", "npm:7.25.0"],
             ["pino", "npm:6.11.3"],
@@ -112,6 +112,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-15.0.1-dcfad4a203-4e4fb69394.zip/node_modules/@types/node/",
           "packageDependencies": [
             ["@types/node", "npm:15.0.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:15.0.2", {
+          "packageLocation": "./.yarn/cache/@types-node-npm-15.0.2-433fc3c944-ea8dd741bf.zip/node_modules/@types/node/",
+          "packageDependencies": [
+            ["@types/node", "npm:15.0.2"]
           ],
           "linkType": "HARD",
         }]
@@ -1335,7 +1342,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["simple-h2-proxy", "workspace:."],
-            ["@types/node", "npm:15.0.1"],
+            ["@types/node", "npm:15.0.2"],
             ["@types/pino", "npm:6.3.8"],
             ["eslint", "npm:7.25.0"],
             ["pino", "npm:6.11.3"],
