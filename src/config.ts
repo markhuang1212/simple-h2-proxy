@@ -8,14 +8,17 @@
  * 
  */
 
+import { env } from "process"
+
 class Config {
 
+    host = env.HOST
     key = '/etc/h2-proxy/key.pem'
     cert = '/etc/h2-proxy/cert.pem'
     ca = '/etc/h2-proxy/ca.pem'
 
     server_port = 443
-    client_port = 8080
+    client_port = 9000
 }
 
 const config = new Config
