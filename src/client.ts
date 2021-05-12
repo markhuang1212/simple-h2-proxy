@@ -20,25 +20,38 @@ server.on('connect', async (req: IncomingMessage, clientSocket: Duplex, head: Bu
 
     const session = http2.connect('https://' + config.host!, { key, cert })
 
+    session.on('error', (err) => {
+        console.error('Session error')
+        console.error(err.stack)
+    })
+
+    session.on('frameError', err => {
+        console.error('Session error')
+        console.error(err.stack)
+    })
+
     const stream = session.request({
         ':method': 'CONNECT',
         ':authority': hostname + ':' + port
     })
 
     stream.on('response', (headers) => {
-        if (headers[':status'] === 200) {
-            clientSocket.write(`HTTP/1.1 200 Connection Established \r\n`
-                + `Proxy-agent: Node.js-Proxy\r\n` + `\r\n`)
-            stream.write(head)
-            stream.pipe(clientSocket)
-            clientSocket.pipe(stream)
-        } else {
-            clientSocket.write(`HTTP/1.1 400 Internal Error\r\n` + `\r\n`)
-            if (!stream.closed)
-                stream.close()
-            if (!clientSocket.destroyed)
-                clientSocket.destroy()
-        }
+        clientSocket.write(`HTTP/1.1 200 Connection Established \r\n`
+            + `Proxy-agent: Node.js-Proxy\r\n` + `\r\n`)
+        console.log(`Connection with ${req.url} established`)
+        stream.write(head)
+        stream.pipe(clientSocket)
+        clientSocket.pipe(stream)
+    })
+
+    stream.on('error', err => {
+        console.error('Stream error')
+        console.error(err.stack)
+    })
+
+    stream.on('frameError', err => {
+        console.error('Stream Frame error')
+        console.error(err.stack)
     })
 
     stream.on('close', () => {
