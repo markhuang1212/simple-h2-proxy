@@ -29,6 +29,8 @@ function waitForSession(session: http2.ClientHttp2Session) {
 
 function initializeSession() {
 
+    console.log('session initializing')
+
     session = http2.connect(`https://${env.HOST}`, {
         cert, key
     })
