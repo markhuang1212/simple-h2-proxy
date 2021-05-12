@@ -14,45 +14,49 @@ const server = http.createServer()
 const cert = fs.readFileSync(config.cert, 'utf-8')
 const key = fs.readFileSync(config.key, 'utf-8')
 
-let session = http2.connect(`https://${env.HOST}`, {
-    cert, key
-})
+let session: http2.ClientHttp2Session | undefined
 
-session.on('error', (err: Error) => {
-    console.log('session error')
-    if (!session.closed)
-        session.close()
-})
+function initializeSession() {
 
-session.on('frameError', (err: Error) => {
-    console.error('session frame error')
-    if (!session.closed)
-        session.close()
-})
+    session = http2.connect(`https://${env.HOST}`, {
+        cert, key
+    })
 
-session.on('close', () => {
-    console.log('session closed')
-})
+    session.on('error', (err: Error) => {
+        console.log('session error')
+        console.log(err)
+        if (session && session.closed)
+            session.close()
+    })
+
+    session.on('frameError', (err: Error) => {
+        console.error('session frame error')
+        console.log(err)
+        if (session && !session.closed)
+            session.close()
+    })
+
+    session.on('close', () => {
+        console.log('session closed')
+    })
+}
 
 server.on('connect', (req: IncomingMessage, clientSocket: Duplex, head: Buffer) => {
     const { port, hostname } = new URL(`tcp://${req.url}`)
     console.log(`Receive CONNECT request to ${req.url}`)
 
-    if (session.closed) {
-        session = http2.connect(`https://${env.HOST}`, {
-            cert, key
-        })
+    if (session === undefined || session.closed || session.destroyed) {
+        initializeSession()
     }
 
-    console.log(hostname + ':' + port)
-
-    const stream = session.request({
+    const stream = session!.request({
         ':method': 'CONNECT',
         ':authority': hostname + ':' + port
     })
 
     stream.on('error', (err: Error) => {
         console.error('stream error')
+        console.log(err.stack)
         if (!stream.closed)
             stream.close()
         if (!clientSocket.destroyed)
@@ -61,6 +65,7 @@ server.on('connect', (req: IncomingMessage, clientSocket: Duplex, head: Buffer) 
 
     stream.on('frameError', (err: Error) => {
         console.log('stream frame error')
+        console.log(err.stack)
         if (!stream.closed)
             stream.close()
         if (!clientSocket.destroyed)
@@ -85,6 +90,11 @@ server.on('connect', (req: IncomingMessage, clientSocket: Duplex, head: Buffer) 
 
 })
 
+process.on('uncaughtException',(err)=>{
+    console.error('Uncaught Exception!!!')
+    console.log(err.stack)
+})
+
 server.listen(config.client_port, () => {
-    console.log('Server is listening')
+    console.log('Client is listening')
 })
