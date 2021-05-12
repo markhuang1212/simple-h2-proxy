@@ -16,6 +16,17 @@ const key = fs.readFileSync(config.key, 'utf-8')
 
 let session: http2.ClientHttp2Session | undefined
 
+function waitForSession(session: http2.ClientHttp2Session) {
+    return new Promise<void>((res, rej) => {
+        session.on('connect', () => {
+            res()
+        })
+        if (session.connecting == false) {
+            res()
+        }
+    })
+}
+
 function initializeSession() {
 
     session = http2.connect(`https://${env.HOST}`, {
@@ -39,15 +50,18 @@ function initializeSession() {
     session.on('close', () => {
         console.log('session closed')
     })
+
 }
 
-server.on('connect', (req: IncomingMessage, clientSocket: Duplex, head: Buffer) => {
+server.on('connect', async (req: IncomingMessage, clientSocket: Duplex, head: Buffer) => {
     const { port, hostname } = new URL(`tcp://${req.url}`)
     console.log(`Receive CONNECT request to ${req.url}`)
 
     if (session === undefined || session.closed || session.destroyed) {
         initializeSession()
     }
+
+    await waitForSession(session!)
 
     const stream = session!.request({
         ':method': 'CONNECT',
@@ -90,7 +104,7 @@ server.on('connect', (req: IncomingMessage, clientSocket: Duplex, head: Buffer) 
 
 })
 
-process.on('uncaughtException',(err)=>{
+process.on('uncaughtException', (err) => {
     console.error('Uncaught Exception!!!')
     console.log(err.stack)
 })
