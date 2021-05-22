@@ -8,8 +8,21 @@ import http2 from 'http2'
 import { Duplex } from 'stream'
 import config from './config'
 import fs from 'fs'
+import path from 'path'
 
-const server = http.createServer()
+const pac = fs.readFileSync(path.join(__dirname, '../static/proxy.pac'))
+
+const server = http.createServer((req, res) => {
+    console.log(`Receive HTTP request to ${req.url}`)
+    if (req.url === '/proxy.pac') {
+        res.setHeader('Content-Type', 'application/x-ns-proxy-autocnfig')
+        res.write(pac)
+        res.end()
+    } else {
+        res.statusCode = 404
+        res.end()
+    }
+})
 
 const cert = fs.readFileSync(config.cert, 'utf-8')
 const key = fs.readFileSync(config.key, 'utf-8')
@@ -65,6 +78,6 @@ process.on('uncaughtException', (err) => {
     console.error(err.stack)
 })
 
-server.listen(config.client_port, () => {
+server.listen(config.client_port, '127.0.0.1', () => {
     console.log('Client is listening')
 })
