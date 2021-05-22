@@ -3,6 +3,8 @@
  * Its current performance is NOT good.
  */
 
+require('../.pnp.js')
+
 import http, { IncomingMessage } from 'http'
 import http2 from 'http2'
 import { Duplex } from 'stream'
