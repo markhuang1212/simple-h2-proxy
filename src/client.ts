@@ -62,11 +62,13 @@ server.on('connect', async (req: IncomingMessage, clientSocket: Duplex, head: Bu
     stream.on('error', err => {
         console.error('Stream error')
         console.error(err.stack)
+        session.close()
     })
 
     stream.on('frameError', err => {
         console.error('Stream Frame error')
         console.error(err.stack)
+        session.close()
     })
 
     stream.on('close', () => {
