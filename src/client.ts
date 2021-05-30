@@ -82,6 +82,6 @@ process.on('uncaughtException', (err) => {
     console.error(err.stack)
 })
 
-server.listen(config.client_port, '127.0.0.1', () => {
+server.listen(config.client_port, () => {
     console.log('Client is listening')
 })
