@@ -12,6 +12,11 @@ import config from './config'
 import fs from 'fs'
 import path from 'path'
 
+if (process.env.HOST === undefined) {
+    console.log('No HOST specified. Exiting')
+    process.exit(1)
+}
+
 const pac = fs.readFileSync(path.join(__dirname, '../static/proxy.pac'))
 
 const server = http.createServer((req, res) => {
@@ -83,5 +88,5 @@ process.on('uncaughtException', (err) => {
 })
 
 server.listen(config.client_port, () => {
-    console.log('Client is listening')
+    console.log('Client is listening at port ' + config.client_port)
 })
