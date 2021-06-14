@@ -1,9 +1,9 @@
 {
   "name": "simple-h2-proxy",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && zip -r release.zip ."
   },
   "dependencies": {
     "@types/node": "^15.0.2",
