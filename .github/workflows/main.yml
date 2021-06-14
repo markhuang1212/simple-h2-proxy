@@ -1,13 +1,10 @@
-name: CI
+name: build-and-release
 
 on:
-  push:
-    branches: [ master ]
-
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-release:
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -16,3 +13,5 @@ jobs:
         with:
           node-version: '16'
       - run: yarn build
+      - run: zip -r release.zip .
+      - run: gh release create {{ env.RELEASE_VERSION }} release.zip
