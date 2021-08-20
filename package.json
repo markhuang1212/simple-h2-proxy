@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "license": "MIT",
   "scripts": {
-    "build": "tsc && zip -r release.zip ."
+    "build": "tsc && zip -rq release.zip ."
   },
   "dependencies": {
     "@types/node": "^15.0.2",
