@@ -3,7 +3,9 @@
   "version": "0.2.0",
   "license": "MIT",
   "scripts": {
-    "build": "tsc && zip -rq release.zip ."
+    "build": "tsc",
+    "client": "node dist/client.js",
+    "server": "node dist/server.js"
   },
   "dependencies": {
     "@types/node": "^15.0.2",
