@@ -1,14 +1,18 @@
 services:
   client:
     build: .
+    command: yarn run client
     ports: 
       - "9000:9000"
     volumes: 
       - "/etc/h2-proxy:/etc/h2-proxy"
+    restart: unless-stopped
   server:
     build: .
+    command: yarn run server
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - "/etc/h2-proxy:/etc/h2-proxy"
+    restart: unless-stopped
