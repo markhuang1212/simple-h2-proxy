@@ -8,6 +8,6 @@
 !/.yarn/cache
 #/.pnp.*
 
-dist
+dist/
 release.zip
 .DS_Store
