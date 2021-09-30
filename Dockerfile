@@ -1,5 +1,7 @@
 FROM node:16
 
+LABEL org.opencontainers.image.source="https://github.com/markhuang1212/simple-h2-proxy"
+
 VOLUME [ "/etc/h2-proxy" ]
 
 EXPOSE 9000

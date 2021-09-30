@@ -1,7 +1,7 @@
 services:
   client:
     build: .
-    image: markhuang1212/simple-h2-proxy
+    image: ghcr.io/markhuang1212/simple-h2-proxy
     command: yarn run client
     ports: 
       - "9000:9000"
@@ -14,7 +14,7 @@ services:
           memory: "512M"
   server:
     build: .
-    image: markhuang1212/simple-h2-proxy
+    image: ghcr.io/markhuang1212/simple-h2-proxy
     command: yarn run server
     ports:
       - "80:80"
