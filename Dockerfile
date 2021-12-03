@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:17
 
 LABEL org.opencontainers.image.source="https://github.com/markhuang1212/simple-h2-proxy"
 
