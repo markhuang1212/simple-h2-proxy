@@ -1,4 +1,4 @@
-FROM node:18
+FROM docker.io/library/node:18
 
 LABEL org.opencontainers.image.source="https://github.com/markhuang1212/simple-h2-proxy"
 
